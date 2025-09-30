@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic Calculator (with brackets)</title>
+  <style>
+    body { display: flex; justify-content: center; align-items: center; height: 100vh; background: #f4f4f4; }
+    .calculator {
+      background: #222; border-radius: 12px; padding: 24px; box-shadow: 0 4px 12px #0003;
+      width: 320px;
+    }
+    .display {
+      width: 100%; height: 48px; font-size: 2em; margin-bottom: 16px;
+      text-align: right; padding: 8px; border-radius: 6px; border: none;
+      background: #444; color: #fff;
+    }
+    .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    button {
+      font-size: 1.15em; padding: 14px; border: none; border-radius: 6px;
+      background: #333; color: #fff; cursor: pointer; transition: background 0.2s;
+    }
+    button:hover { background: #131313; }
+    .operator { background: #1e90ff; color: #fff; }
+    .equal { background: #f10606; color: #fff; }
+    .clear { background: #1e90ff; color: #fff; }
+    .bracket { background: #1e90ff; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" class="display" id="display" readonly />
+    <div class="buttons">
+     
+      <button class="clear" onclick="clearAll()">AC</button>
+      <button class="operator" onclick="press('%')">%</button>
+      <button class="clear" onclick="clearOne()">C</button>
+      <button class="operator" onclick="press('/')">÷</button>
+      
+      <button onclick="press('7')">7</button>
+      <button onclick="press('8')">8</button>
+      <button onclick="press('9')">9</button>
+      <button class="operator" onclick="press('*')">x</button>
+
+      <button onclick="press('4')">4</button>
+      <button onclick="press('5')">5</button>
+      <button onclick="press('6')">6</button>
+      <button class="operator" onclick="press('-')">−</button>
+
+      <button onclick="press('1')">1</button>
+      <button onclick="press('2')">2</button>
+      <button onclick="press('3')">3</button>
+      <button class="operator" onclick="press('+')">+</button>     
+      
+      <button class="press('00')">00</button>
+      <button onclick="press('0')">0</button>
+      <button onclick="press('.')">.</button>
+      <button class="equal" onclick="calculate()">=</button>
+    </div>
+  </div>
+  <script>
+    let display = document.getElementById('display');
+    let currentInput = '';
+
+    function press(val) {
+      currentInput += val;
+      display.value = currentInput;
+    }
+
+    function clearOne() {
+      currentInput = currentInput.slice(0, -1);
+      display.value = currentInput;
+    }
+
+    function clearAll() {
+      currentInput = '';
+      display.value = '';
+    }
+
+    function calculate() {
+      try {
+        if (currentInput.trim() === '') return;
+        let result = eval(currentInput);
+        display.value = result;
+        currentInput = result.toString();
+      } catch (e) {
+        display.value = 'Error';
+        currentInput = '';
+      }
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (/^[0-9]$/.test(e.key) || ['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {
+        press(e.key);
+        e.preventDefault();
+      } else if (e.key === 'Enter') {
+        calculate();
+        e.preventDefault();
+      } else if (e.key === 'Backspace') {
+        clearOne();
+        e.preventDefault();
+      } else if (e.key.toLowerCase() === 'c') {
+        clearAll();
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>

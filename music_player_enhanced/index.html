@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title> Music Player</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-dark">
+  <div class="container">
+    <header>
+      <h1> Music Player</h1>
+      <div class="header-controls">
+        <button id="themeToggle" title="Toggle theme">🌗</button>
+      </div>
+    </header>
+
+    <main class="player">
+      <div class="left">
+        <div class="cover-wrap">
+          <img id="cover" src="assets/cover1.svg" alt="cover">
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="now-playing">
+          <div id="title">Title</div>
+          <div id="artist">Artist</div>
+        </div>
+
+        <audio id="audio"></audio>
+
+        <div class="controls-row">
+          <div class="top-controls">
+            <button id="shuffle" title="Shuffle">🔀</button>
+            <button id="prev" title="Previous">⏮️</button>
+            <button id="play" title="Play/Pause">▶️</button>
+            <button id="next" title="Next">⏭️</button>
+            <button id="repeat" title="Repeat">🔁</button>
+            <label class="autoplay"><input type="checkbox" id="autoplay"> Autoplay</label>
+          </div>
+
+          <div class="progress-wrap">
+            <input type="range" id="progress" min="0" max="100" value="0">
+            <div class="time"><span id="current">0:00</span> / <span id="duration">0:00</span></div>
+          </div>
+
+          <div class="bottom-controls">
+            <label class="volume">Vol <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8"></label>
+            <div class="drop-hint" id="dropHint">Drag & Drop songs here or press + to add</div>
+            <input type="file" id="filePicker" accept=".mp3,.wav" multiple style="display:none">
+            <button id="addFiles" title="Add files (+)">➕</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <section class="playlist-wrap">
+      <h2>Playlist</h2>
+      <div id="playlist" class="playlist"></div>
+    </section>
+
+    <footer class="credits">Keyboard: Space Play/Pause • ← Prev • → Next • ↑/↓ Volume</footer>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
